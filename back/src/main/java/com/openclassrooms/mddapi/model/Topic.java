@@ -7,6 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Entity representing a discussion topic/theme.
+ */
 @Entity
 @Table(name = "topics")
 public class Topic {
@@ -15,9 +18,20 @@ public class Topic {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "topic_id")
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String name;
+
+	@Column(columnDefinition = "TEXT")
+	private String description;
+
+	public Topic() {
+	}
+
+	public Topic(String name, String description) {
+		this.name = name;
+		this.description = description;
+	}
 
 	public Long getId() {
 		return id;
@@ -34,5 +48,12 @@ public class Topic {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }
