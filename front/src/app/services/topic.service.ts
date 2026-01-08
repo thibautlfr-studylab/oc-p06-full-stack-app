@@ -9,7 +9,7 @@ import { Topic } from '../interfaces/topic.interface';
 })
 export class TopicService {
 
-  private apiUrl = `${environment.apiUrl}/topic`;
+  private apiUrl = `${environment.apiUrl}/api/topics`;
 
   constructor(private http: HttpClient) { }
 
