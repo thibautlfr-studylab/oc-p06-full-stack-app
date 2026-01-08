@@ -1,6 +1,7 @@
-package com.openclassrooms.mddapi.service;
+package com.openclassrooms.mddapi.service.implementations;
 
 import com.openclassrooms.mddapi.repository.PostRepository;
+import com.openclassrooms.mddapi.service.interfaces.IPostService;
 
 public class PostService implements IPostService {
 
