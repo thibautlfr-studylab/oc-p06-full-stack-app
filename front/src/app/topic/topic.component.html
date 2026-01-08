@@ -1,1 +1,22 @@
-<p>topic works!</p>
+<div class="topics-container">
+  <h1>Topics</h1>
+
+  <div *ngIf="loading" class="loading">
+    Chargement...
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error" class="topics-list">
+    <mat-card *ngFor="let topic of topics" class="topic-card">
+      <mat-card-header>
+        <mat-card-title>{{ topic.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ topic.description }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
