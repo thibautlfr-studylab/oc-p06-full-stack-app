@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { PASSWORD_PATTERN, getPasswordErrors } from '../../shared/validators/password.validator';
 
 @Component({
   selector: 'app-register',
@@ -14,8 +15,6 @@ export class RegisterComponent {
   errorMessage = '';
   isLoading = false;
 
-  passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\S+$).{8,}$/;
-
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -24,7 +23,7 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(this.passwordPattern)]]
+      password: ['', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]]
     });
   }
 
@@ -33,26 +32,8 @@ export class RegisterComponent {
   }
 
   getPasswordErrors(): string[] {
-    const errors: string[] = [];
     const password = this.registerForm.get('password')?.value || '';
-
-    if (password.length < 8) {
-      errors.push('Au moins 8 caracteres');
-    }
-    if (!/[0-9]/.test(password)) {
-      errors.push('Au moins 1 chiffre');
-    }
-    if (!/[a-z]/.test(password)) {
-      errors.push('Au moins 1 minuscule');
-    }
-    if (!/[A-Z]/.test(password)) {
-      errors.push('Au moins 1 majuscule');
-    }
-    if (!/[@#$%^&+=!]/.test(password)) {
-      errors.push('Au moins 1 caractere special (@#$%^&+=!)');
-    }
-
-    return errors;
+    return getPasswordErrors(password);
   }
 
   onSubmit(): void {

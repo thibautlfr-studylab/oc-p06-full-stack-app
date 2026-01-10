@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
+import { PASSWORD_PATTERN, getPasswordErrors } from '../../shared/validators/password.validator';
 
 @Component({
   selector: 'app-profile',
@@ -16,8 +17,6 @@ export class ProfileComponent implements OnInit {
   successMessage = '';
   errorMessage = '';
   isLoading = false;
-
-  passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\S+$).{8,}$/;
 
   constructor(
     private fb: FormBuilder,
@@ -42,30 +41,11 @@ export class ProfileComponent implements OnInit {
   }
 
   getPasswordErrors(): string[] {
-    const errors: string[] = [];
     const password = this.profileForm.get('password')?.value || '';
-
     if (!password) {
       return [];
     }
-
-    if (password.length < 8) {
-      errors.push('Au moins 8 caracteres');
-    }
-    if (!/[0-9]/.test(password)) {
-      errors.push('Au moins 1 chiffre');
-    }
-    if (!/[a-z]/.test(password)) {
-      errors.push('Au moins 1 minuscule');
-    }
-    if (!/[A-Z]/.test(password)) {
-      errors.push('Au moins 1 majuscule');
-    }
-    if (!/[@#$%^&+=!]/.test(password)) {
-      errors.push('Au moins 1 caractere special (@#$%^&+=!)');
-    }
-
-    return errors;
+    return getPasswordErrors(password);
   }
 
   isPasswordValid(): boolean {
@@ -73,7 +53,7 @@ export class ProfileComponent implements OnInit {
     if (!password) {
       return true;
     }
-    return this.passwordPattern.test(password);
+    return PASSWORD_PATTERN.test(password);
   }
 
   onSubmit(): void {

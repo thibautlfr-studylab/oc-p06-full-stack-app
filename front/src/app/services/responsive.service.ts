@@ -8,7 +8,7 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 export class ResponsiveService implements OnDestroy {
   private isMobileSubject = new BehaviorSubject<boolean>(false);
   public isMobile$ = this.isMobileSubject.asObservable();
-  private resizeSubscription: Subscription;
+  private readonly resizeSubscription: Subscription;
 
   constructor() {
     this.checkViewport();

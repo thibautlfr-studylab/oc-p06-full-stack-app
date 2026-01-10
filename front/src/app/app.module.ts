@@ -19,6 +19,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    NgOptimizedImage
   ],
   providers: [
     provideHttpClient()

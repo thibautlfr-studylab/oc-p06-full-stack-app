@@ -1,8 +1,7 @@
 .profile-container {
   min-height: calc(100vh - 60px);
   background-color: #fafafa;
-  padding: 1rem;
-  padding-top: 80px;
+  padding: 80px 1rem 1rem;
 }
 
 .profile-content {

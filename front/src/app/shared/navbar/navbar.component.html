@@ -10,7 +10,7 @@
       <span class="nav-link logout-link" (click)="logout()">Se déconnecter</span>
       <a class="nav-link" routerLink="/themes" routerLinkActive="active">Themes</a>
       <a class="nav-link" routerLink="/profile" routerLinkActive="active">
-        <img src="assets/images/user.svg" alt="User" class="user-icon">
+        <img ngSrc="assets/images/user.svg" alt="User" class="user-icon" height="32" width="32">
       </a>
     </div>
     }
@@ -38,7 +38,7 @@
       <span class="mobile-nav-link logout-link" (click)="logout()">Se déconnecter</span>
       <a class="mobile-nav-link" routerLink="/themes" routerLinkActive="active" (click)="closeMobileMenu()">Themes</a>
       <a class="mobile-nav-link user-link-mobile" routerLink="/profile" routerLinkActive="active" (click)="closeMobileMenu()">
-        <img src="assets/images/user.svg" alt="User" class="user-icon">
+        <img ngSrc="assets/images/user.svg" alt="User" class="user-icon" height="32" width="32">
       </a>
     </div>
   </div>
