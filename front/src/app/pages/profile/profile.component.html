@@ -1,0 +1,62 @@
+<div class="profile-container">
+  <div class="profile-content">
+    <h1 class="profile-title">Profil utilisateur</h1>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nom d'utilisateur</mat-label>
+        <input matInput formControlName="username" type="text">
+        @if (profileForm.get('username')?.hasError('required')) {
+          <mat-error>Ce champ est requis</mat-error>
+        }
+        @if (profileForm.get('username')?.hasError('minlength')) {
+          <mat-error>Minimum 3 caracteres</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Adresse e-mail</mat-label>
+        <input matInput formControlName="email" type="email">
+        @if (profileForm.get('email')?.hasError('required')) {
+          <mat-error>Ce champ est requis</mat-error>
+        }
+        @if (profileForm.get('email')?.hasError('email')) {
+          <mat-error>Email invalide</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput formControlName="password" type="password" placeholder="Laisser vide pour ne pas changer">
+      </mat-form-field>
+
+      @if (profileForm.get('password')?.value) {
+        <div class="password-requirements">
+          <p class="requirements-title">Le mot de passe doit contenir :</p>
+          <ul class="requirements-list">
+            @for (error of getPasswordErrors(); track error) {
+              <li class="requirement-item invalid">{{ error }}</li>
+            }
+          </ul>
+        </div>
+      }
+
+      @if (successMessage) {
+        <div class="success-message">{{ successMessage }}</div>
+      }
+
+      @if (errorMessage) {
+        <div class="error-message">{{ errorMessage }}</div>
+      }
+
+      <button mat-flat-button color="primary" type="submit" class="submit-button" [disabled]="isLoading || !isPasswordValid()">
+        {{ isLoading ? 'Sauvegarde...' : 'Sauvegarder' }}
+      </button>
+    </form>
+
+    <div class="subscriptions-section">
+      <h2 class="subscriptions-title">Abonnements</h2>
+      <p class="subscriptions-placeholder">Les abonnements seront affiches ici.</p>
+    </div>
+  </div>
+</div>

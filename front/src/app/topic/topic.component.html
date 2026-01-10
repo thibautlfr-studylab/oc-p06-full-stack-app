@@ -1,22 +1,26 @@
 <div class="topics-container">
   <h1>Topics</h1>
 
-  <div *ngIf="loading" class="loading">
-    Chargement...
-  </div>
+  @if (loading) {
+    <div class="loading">Chargement...</div>
+  }
 
-  <div *ngIf="error" class="error">
-    {{ error }}
-  </div>
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
 
-  <div *ngIf="!loading && !error" class="topics-list">
-    <mat-card *ngFor="let topic of topics" class="topic-card">
-      <mat-card-header>
-        <mat-card-title>{{ topic.name }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>{{ topic.description }}</p>
-      </mat-card-content>
-    </mat-card>
-  </div>
+  @if (!loading && !error) {
+    <div class="topics-list">
+      @for (topic of topics; track topic.id) {
+        <mat-card class="topic-card">
+          <mat-card-header>
+            <mat-card-title>{{ topic.name }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ topic.description }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  }
 </div>

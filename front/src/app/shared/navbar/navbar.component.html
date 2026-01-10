@@ -1,0 +1,46 @@
+@if (isLoggedIn) {
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-left">
+      <app-logo size="small" class="navbar-logo" (click)="navigateTo('/themes')"></app-logo>
+    </div>
+
+    @if (!isMobile) {
+    <div class="navbar-center">
+      <span class="nav-link logout-link" (click)="logout()">Se déconnecter</span>
+      <a class="nav-link" routerLink="/themes" routerLinkActive="active">Themes</a>
+      <a class="nav-link" routerLink="/profile" routerLinkActive="active">
+        <img src="assets/images/user.svg" alt="User" class="user-icon">
+      </a>
+    </div>
+    }
+
+    @if (isMobile) {
+    <button class="burger-menu" (click)="toggleMobileMenu()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 12H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3 6H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3 18H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    }
+  </div>
+
+  @if (isMobile && isMobileMenuOpen) {
+  <div class="mobile-overlay" (click)="closeMobileMenu()"></div>
+  }
+
+  <div class="mobile-menu" [class.open]="isMobile && isMobileMenuOpen">
+    <div class="mobile-menu-header">
+    </div>
+
+    <div class="mobile-menu-content">
+      <span class="mobile-nav-link logout-link" (click)="logout()">Se déconnecter</span>
+      <a class="mobile-nav-link" routerLink="/themes" routerLinkActive="active" (click)="closeMobileMenu()">Themes</a>
+      <a class="mobile-nav-link user-link-mobile" routerLink="/profile" routerLinkActive="active" (click)="closeMobileMenu()">
+        <img src="assets/images/user.svg" alt="User" class="user-icon">
+      </a>
+    </div>
+  </div>
+</nav>
+}
