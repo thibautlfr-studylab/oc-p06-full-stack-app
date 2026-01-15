@@ -1,7 +1,7 @@
 .topics-container {
-  max-width: 900px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 1rem;
+  padding: var(--spacing-base);
 }
 
 h1 {
@@ -12,17 +12,17 @@ h1 {
 .loading,
 .error {
   text-align: center;
-  padding: 20px;
+  padding: var(--grid-gap);
 }
 
 .error {
-  color: #d32f2f;
+  color: var(--color-error);
 }
 
 .topics-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: var(--grid-gap);
 }
 
 @media (max-width: 768px) {
@@ -41,7 +41,7 @@ mat-card-content {
 }
 
 mat-card-content p {
-  color: #666;
+  color: var(--color-text-secondary);
   margin-top: 8px;
 }
 
@@ -52,24 +52,24 @@ mat-card-actions {
 }
 
 .subscribe-button {
-  background-color: #7763C5 !important;
+  background-color: var(--color-primary) !important;
   color: white !important;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 0 24px;
 }
 
 .subscribe-button:hover:not([disabled]) {
-  background-color: #6554B0 !important;
+  background-color: var(--color-primary-hover) !important;
 }
 
 .subscribe-button:disabled {
-  background-color: #7763C5 !important;
+  background-color: var(--color-primary) !important;
   opacity: 0.7;
 }
 
 .subscribed-button {
-  background-color: #E5E7EB !important;
-  color: #6B7280 !important;
-  border-radius: 8px;
+  background-color: var(--color-disabled-bg) !important;
+  color: var(--color-text-light) !important;
+  border-radius: var(--radius-md);
   padding: 0 24px;
 }
