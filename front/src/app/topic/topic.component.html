@@ -12,38 +12,13 @@
   @if (!loading && !error) {
     <div class="topics-grid">
       @for (topic of topics; track topic.id) {
-        <mat-card class="topic-card">
-
-          <mat-card-header>
-            <mat-card-title>{{ topic.name }}</mat-card-title>
-          </mat-card-header>
-
-          <mat-card-content>
-            <p>{{ topic.description }}</p>
-          </mat-card-content>
-
-          <mat-card-actions>
-            @if (isSubscribed(topic.id)) {
-              <button mat-flat-button class="subscribed-button" disabled>
-                Déjà abonné
-              </button>
-            } @else {
-              <button
-                mat-flat-button
-                color="primary"
-                class="subscribe-button"
-                [disabled]="subscribingTopicId === topic.id"
-                (click)="subscribe(topic.id)">
-                @if (subscribingTopicId === topic.id) {
-                  Abonnement...
-                } @else {
-                  S'abonner
-                }
-              </button>
-            }
-          </mat-card-actions>
-
-        </mat-card>
+        <app-topic-card
+          [topic]="topic"
+          mode="subscribe"
+          [isSubscribed]="isSubscribed(topic.id)"
+          [isLoading]="subscribingTopicId === topic.id"
+          (action)="subscribe($event)">
+        </app-topic-card>
       }
     </div>
   }

@@ -124,39 +124,3 @@
     font-size: var(--font-size-lg);
   }
 }
-
-.subscription-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.subscription-card mat-card-content {
-  flex: 1;
-}
-
-.subscription-card mat-card-content p {
-  color: var(--color-text-secondary);
-  margin-top: 8px;
-}
-
-.subscription-card mat-card-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 8px 16px 16px;
-}
-
-.unsubscribe-button {
-  background-color: var(--color-primary) !important;
-  color: white !important;
-  border-radius: var(--radius-md);
-  padding: 0 24px;
-}
-
-.unsubscribe-button:hover:not([disabled]) {
-  background-color: var(--color-primary-hover) !important;
-}
-
-.unsubscribe-button:disabled {
-  background-color: var(--color-primary) !important;
-  opacity: 0.7;
-}

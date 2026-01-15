@@ -1,0 +1,48 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.topic-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+mat-card-content {
+  flex: 1;
+}
+
+mat-card-content p {
+  color: var(--color-text-secondary);
+  margin-top: 8px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+}
+
+.action-button {
+  background-color: var(--color-primary) !important;
+  color: white !important;
+  border-radius: var(--radius-md);
+  padding: 0 24px;
+}
+
+.action-button:hover:not([disabled]) {
+  background-color: var(--color-primary-hover) !important;
+}
+
+.action-button:disabled {
+  background-color: var(--color-primary) !important;
+  opacity: 0.7;
+}
+
+.subscribed-button {
+  background-color: var(--color-disabled-bg) !important;
+  color: var(--color-text-light) !important;
+  border-radius: var(--radius-md);
+  padding: 0 24px;
+}

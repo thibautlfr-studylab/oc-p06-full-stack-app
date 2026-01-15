@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 import { TopicComponent } from './topic/topic.component';
 import { LogoComponent } from './shared/logo/logo.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { TopicCardComponent } from './shared/topic-card/topic-card.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -27,6 +28,7 @@ import {NgOptimizedImage} from "@angular/common";
     TopicComponent,
     LogoComponent,
     NavbarComponent,
+    TopicCardComponent,
     HomeComponent,
     LoginComponent,
     RegisterComponent,
