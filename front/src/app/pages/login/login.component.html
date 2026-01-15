@@ -1,14 +1,12 @@
 <div class="auth-container">
-  <div class="auth-header">
-    <app-logo size="small"></app-logo>
-    <button mat-icon-button class="back-button" (click)="goBack()">
+  <div class="auth-nav">
+    <button class="back-button" (click)="goBack()">
       <mat-icon>arrow_back</mat-icon>
     </button>
+    <h1 class="auth-title">Se connecter</h1>
   </div>
 
   <div class="auth-content">
-    <h1 class="auth-title">Se connecter</h1>
-
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>E-mail ou nom d'utilisateur</mat-label>
