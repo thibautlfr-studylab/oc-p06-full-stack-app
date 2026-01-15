@@ -21,7 +21,7 @@
 }
 
 .back-button:hover {
-  color: #7C3AED;
+  color: #7763C5;
 }
 
 .auth-title {
@@ -93,12 +93,12 @@
 .submit-button {
   margin-top: 1rem;
   padding: 0.75rem;
-  border-radius: 25px;
-  background-color: #7C3AED;
+  border-radius: 8px;
+  background-color: #7763C5 !important;
 }
 
 .submit-button:hover:not(:disabled) {
-  background-color: #6D28D9;
+  background-color: #6554B0 !important;
 }
 
 .submit-button:disabled {

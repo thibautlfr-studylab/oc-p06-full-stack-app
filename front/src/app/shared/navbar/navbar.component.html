@@ -7,8 +7,8 @@
     @if (isLoggedIn) {
       @if (!isMobile) {
       <div class="navbar-center">
-        <span class="nav-link logout-link" (click)="logout()">Se deconnecter</span>
-        <a class="nav-link" routerLink="/themes" routerLinkActive="active">Themes</a>
+        <span class="nav-link logout-link" (click)="logout()">Se déconnecter</span>
+        <a class="nav-link" routerLink="/themes" routerLinkActive="active">Thèmes</a>
         <a class="nav-link" routerLink="/profile" routerLinkActive="active">
           <img ngSrc="assets/images/user.svg" alt="User" class="user-icon" height="32" width="32">
         </a>
@@ -33,12 +33,9 @@
 
   @if (isLoggedIn) {
   <div class="mobile-menu" [class.open]="isMobile && isMobileMenuOpen">
-    <div class="mobile-menu-header">
-    </div>
-
     <div class="mobile-menu-content">
-      <span class="mobile-nav-link logout-link" (click)="logout()">Se deconnecter</span>
-      <a class="mobile-nav-link" routerLink="/themes" routerLinkActive="active" (click)="closeMobileMenu()">Themes</a>
+      <span class="mobile-nav-link logout-link" (click)="logout()">Se déconnecter</span>
+      <a class="mobile-nav-link" routerLink="/themes" routerLinkActive="active" (click)="closeMobileMenu()">Thèmes</a>
       <a class="mobile-nav-link user-link-mobile" routerLink="/profile" routerLinkActive="active" (click)="closeMobileMenu()">
         <img ngSrc="assets/images/user.svg" alt="User" class="user-icon" height="32" width="32">
       </a>
