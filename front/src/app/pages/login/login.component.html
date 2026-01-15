@@ -1,0 +1,36 @@
+<div class="auth-container">
+  <div class="auth-nav">
+    <button class="back-button" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1 class="auth-title">Se connecter</h1>
+  </div>
+
+  <div class="auth-content">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>E-mail ou nom d'utilisateur</mat-label>
+        <input matInput formControlName="identifier" type="text">
+        @if (loginForm.get('identifier')?.hasError('required')) {
+          <mat-error>Ce champ est requis</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput formControlName="password" type="password">
+        @if (loginForm.get('password')?.hasError('required')) {
+          <mat-error>Ce champ est requis</mat-error>
+        }
+      </mat-form-field>
+
+      @if (errorMessage) {
+        <div class="error-message">{{ errorMessage }}</div>
+      }
+
+      <button mat-flat-button color="primary" type="submit" class="submit-button" [disabled]="isLoading">
+        {{ isLoading ? 'Connexion...' : 'Se connecter' }}
+      </button>
+    </form>
+  </div>
+</div>
