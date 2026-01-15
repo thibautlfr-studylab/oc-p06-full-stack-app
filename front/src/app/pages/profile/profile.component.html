@@ -10,7 +10,7 @@
           <mat-error>Ce champ est requis</mat-error>
         }
         @if (profileForm.get('username')?.hasError('minlength')) {
-          <mat-error>Minimum 3 caracteres</mat-error>
+          <mat-error>Minimum 3 caractères</mat-error>
         }
       </mat-form-field>
 
@@ -56,7 +56,38 @@
 
     <div class="subscriptions-section">
       <h2 class="subscriptions-title">Abonnements</h2>
-      <p class="subscriptions-placeholder">Les abonnements seront affiches ici.</p>
+
+      @if (loadingSubscriptions) {
+        <p class="subscriptions-loading">Chargement...</p>
+      } @else if (subscriptions.length === 0) {
+        <p class="subscriptions-empty">Vous n'êtes abonné à aucun thème.</p>
+      } @else {
+        <div class="subscriptions-grid">
+          @for (subscription of subscriptions; track subscription.id) {
+            <mat-card class="subscription-card">
+              <mat-card-header>
+                <mat-card-title>{{ subscription.topicName }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>{{ subscription.topicDescription }}</p>
+              </mat-card-content>
+              <mat-card-actions>
+                <button
+                  mat-flat-button
+                  class="unsubscribe-button"
+                  [disabled]="unsubscribingTopicId === subscription.topicId"
+                  (click)="unsubscribe(subscription.topicId)">
+                  @if (unsubscribingTopicId === subscription.topicId) {
+                    Désabonnement...
+                  } @else {
+                    Se désabonner
+                  }
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          }
+        </div>
+      }
     </div>
   </div>
 </div>
