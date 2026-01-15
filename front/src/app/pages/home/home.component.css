@@ -21,7 +21,7 @@
 
 .home-button {
   border: 1px solid #333;
-  border-radius: 25px;
+  border-radius: 8px;
   padding: 0.75rem 2rem;
   font-size: 1rem;
   cursor: pointer;
@@ -30,7 +30,9 @@
 }
 
 .home-button:hover {
-  background-color: #f0f0f0;
+  background-color: #7763C5;
+  border-color: #7763C5;
+  color: white;
 }
 
 @media (max-width: 768px) {
