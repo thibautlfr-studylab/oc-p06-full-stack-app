@@ -1,5 +1,5 @@
 <div class="topics-container">
-  <h1>Topics</h1>
+  <h1>Thèmes</h1>
 
   @if (loading) {
     <div class="loading">Chargement...</div>
@@ -10,15 +10,39 @@
   }
 
   @if (!loading && !error) {
-    <div class="topics-list">
+    <div class="topics-grid">
       @for (topic of topics; track topic.id) {
         <mat-card class="topic-card">
+
           <mat-card-header>
             <mat-card-title>{{ topic.name }}</mat-card-title>
           </mat-card-header>
+
           <mat-card-content>
             <p>{{ topic.description }}</p>
           </mat-card-content>
+
+          <mat-card-actions>
+            @if (isSubscribed(topic.id)) {
+              <button mat-flat-button class="subscribed-button" disabled>
+                Déjà abonné
+              </button>
+            } @else {
+              <button
+                mat-flat-button
+                color="primary"
+                class="subscribe-button"
+                [disabled]="subscribingTopicId === topic.id"
+                (click)="subscribe(topic.id)">
+                @if (subscribingTopicId === topic.id) {
+                  Abonnement...
+                } @else {
+                  S'abonner
+                }
+              </button>
+            }
+          </mat-card-actions>
+
         </mat-card>
       }
     </div>

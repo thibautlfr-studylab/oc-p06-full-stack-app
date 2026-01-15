@@ -1,5 +1,5 @@
 .topics-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 1rem;
 }
@@ -19,16 +19,57 @@ h1 {
   color: #d32f2f;
 }
 
-.topics-list {
+.topics-grid {
   display: grid;
-  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .topics-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .topic-card {
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-card-content {
+  flex: 1;
 }
 
 mat-card-content p {
   color: #666;
   margin-top: 8px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+}
+
+.subscribe-button {
+  background-color: #7763C5 !important;
+  color: white !important;
+  border-radius: 8px;
+  padding: 0 24px;
+}
+
+.subscribe-button:hover:not([disabled]) {
+  background-color: #6554B0 !important;
+}
+
+.subscribe-button:disabled {
+  background-color: #7763C5 !important;
+  opacity: 0.7;
+}
+
+.subscribed-button {
+  background-color: #E5E7EB !important;
+  color: #6B7280 !important;
+  border-radius: 8px;
+  padding: 0 24px;
 }
