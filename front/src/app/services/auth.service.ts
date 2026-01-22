@@ -10,30 +10,34 @@ import { AuthResponse, LoginRequest, RegisterRequest, User } from '../interfaces
 export class AuthService {
 
   private apiUrl = `${environment.apiUrl}/api/auth`;
-  private storageKey = 'mdd_user';
+  private tokenKey = 'mdd_token';
   private currentUserSubject = new BehaviorSubject<User | null>(null);
 
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    this.loadUserFromStorage();
+    this.loadUserFromToken();
   }
 
   register(request: RegisterRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/register`, request).pipe(
-      tap(response => this.saveUserToStorage(response))
+      tap(response => this.handleAuthResponse(response))
     );
   }
 
   login(request: LoginRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, request).pipe(
-      tap(response => this.saveUserToStorage(response))
+      tap(response => this.handleAuthResponse(response))
     );
   }
 
   logout(): void {
-    this.clearStorage();
+    localStorage.removeItem(this.tokenKey);
     this.currentUserSubject.next(null);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
   }
 
   isLoggedIn(): boolean {
@@ -45,32 +49,42 @@ export class AuthService {
   }
 
   updateCurrentUser(user: User): void {
-    this.saveUserToStorage(user);
-  }
-
-  private saveUserToStorage(response: AuthResponse | User): void {
-    const user: User = {
-      id: response.id,
-      username: response.username,
-      email: response.email
-    };
-    localStorage.setItem(this.storageKey, JSON.stringify(user));
     this.currentUserSubject.next(user);
   }
 
-  private loadUserFromStorage(): void {
-    const stored = localStorage.getItem(this.storageKey);
-    if (stored) {
-      try {
-        const user: User = JSON.parse(stored);
+  private handleAuthResponse(response: AuthResponse): void {
+    localStorage.setItem(this.tokenKey, response.token);
+    this.loadUserFromToken();
+  }
+
+  private loadUserFromToken(): void {
+    const token = this.getToken();
+    if (token) {
+      const payload = this.decodeToken(token);
+      if (payload && !this.isTokenExpired(payload)) {
+        const user: User = {
+          id: payload.userId,
+          username: payload.username,
+          email: payload.sub
+        };
         this.currentUserSubject.next(user);
-      } catch {
-        this.clearStorage();
+      } else {
+        this.logout();
       }
     }
   }
 
-  private clearStorage(): void {
-    localStorage.removeItem(this.storageKey);
+  private decodeToken(token: string): any {
+    try {
+      const payload = token.split('.')[1];
+      return JSON.parse(atob(payload));
+    } catch {
+      return null;
+    }
+  }
+
+  private isTokenExpired(payload: any): boolean {
+    if (!payload.exp) return true;
+    return Date.now() >= payload.exp * 1000;
   }
 }
