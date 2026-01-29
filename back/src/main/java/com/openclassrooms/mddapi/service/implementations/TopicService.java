@@ -6,6 +6,7 @@ import com.openclassrooms.mddapi.service.interfaces.ITopicService;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.dto.TopicDTO;
+import com.openclassrooms.mddapi.exception.ResourceNotFoundException;
 import com.openclassrooms.mddapi.mapper.TopicMapper;
 import com.openclassrooms.mddapi.repository.TopicRepository;
 
@@ -30,6 +31,6 @@ public class TopicService implements ITopicService {
 	public TopicDTO getTopicById(Long id) {
 		return topicRepository.findById(id)
 				.map(topicMapper::toDTO)
-				.orElse(null);
+				.orElseThrow(() -> new ResourceNotFoundException("Topic not found with id: " + id));
 	}
 }

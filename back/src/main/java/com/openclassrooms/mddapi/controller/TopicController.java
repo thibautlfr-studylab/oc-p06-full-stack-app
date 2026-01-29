@@ -41,10 +41,6 @@ public class TopicController {
 	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<TopicDTO> getTopicById(@PathVariable Long id) {
-		TopicDTO topic = topicService.getTopicById(id);
-		if (topic == null) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(topic);
+		return ResponseEntity.ok(topicService.getTopicById(id));
 	}
 }

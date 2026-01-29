@@ -1,0 +1,62 @@
+<div class="article-container">
+  <div class="article-header">
+    <button mat-icon-button class="back-button" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    @if (post) {
+      <h1 class="article-title">{{ post.title }}</h1>
+    }
+  </div>
+
+  @if (loading) {
+    <div class="loading">Chargement...</div>
+  }
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (!loading && post) {
+    <div class="article-meta">
+      <span class="article-date">{{ post.createdAt | date:'dd/MM/yyyy' }}</span>
+      <span class="article-author">{{ post.authorUsername }}</span>
+      <span class="article-theme">{{ post.topicName }}</span>
+    </div>
+
+    <div class="article-content">
+      <p>{{ post.content }}</p>
+    </div>
+
+    <div class="comments-section">
+      <h2>Commentaires</h2>
+
+      @if (loadingComments) {
+        <p class="comments-loading">Chargement des commentaires...</p>
+      }
+
+      @if (!loadingComments && comments.length === 0) {
+        <p class="no-comments">Aucun commentaire pour le moment.</p>
+      }
+
+      @if (!loadingComments && comments.length > 0) {
+        <div class="comments-list">
+          @for (comment of comments; track comment.id) {
+            <div class="comment">
+              <span class="comment-author">{{ comment.authorUsername }}</span>
+              <p class="comment-content">{{ comment.content }}</p>
+            </div>
+          }
+        </div>
+      }
+
+      <div class="comment-form">
+        <mat-form-field appearance="outline" class="comment-input">
+          <input matInput [(ngModel)]="newComment" placeholder="Écrivez ici votre commentaire">
+        </mat-form-field>
+        <button mat-icon-button class="send-button" (click)="submitComment()" [disabled]="!newComment.trim() || submitting">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </div>
+  }
+</div>
