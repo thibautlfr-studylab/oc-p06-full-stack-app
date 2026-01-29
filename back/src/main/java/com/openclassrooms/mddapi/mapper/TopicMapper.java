@@ -1,11 +1,10 @@
 package com.openclassrooms.mddapi.mapper;
 
-import java.util.List;
-
-import org.mapstruct.Mapper;
-
 import com.openclassrooms.mddapi.dto.TopicDTO;
 import com.openclassrooms.mddapi.model.Topic;
+import org.mapstruct.Mapper;
+
+import java.util.List;
 
 /**
  * MapStruct mapper for Topic entity.
@@ -13,9 +12,9 @@ import com.openclassrooms.mddapi.model.Topic;
 @Mapper(componentModel = "spring")
 public interface TopicMapper {
 
-	TopicDTO toDTO(Topic topic);
+  TopicDTO toDTO(Topic topic);
 
-	Topic toEntity(TopicDTO dto);
+  Topic toEntity(TopicDTO dto);
 
-	List<TopicDTO> toDTOList(List<Topic> topics);
+  List<TopicDTO> toDTOList(List<Topic> topics);
 }

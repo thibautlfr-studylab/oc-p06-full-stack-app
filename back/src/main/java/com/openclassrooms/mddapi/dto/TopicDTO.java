@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TopicDTO {
 
-	private Long id;
-	private String name;
-	private String description;
+  private Long id;
+  private String name;
+  private String description;
 }

@@ -16,11 +16,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateProfileRequest {
 
-	@Size(min = 3, max = 100, message = "Username must be between 3 and 100 characters")
-	private String username;
+  @Size(min = 3, max = 100, message = "Username must be between 3 and 100 characters")
+  private String username;
 
-	@Email(message = "Email must be valid")
-	private String email;
+  @Email(message = "Email must be valid")
+  private String email;
 
-	private String password;
+  private String password;
 }

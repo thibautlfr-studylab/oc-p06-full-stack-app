@@ -10,26 +10,26 @@ import com.openclassrooms.mddapi.dto.response.AuthResponse;
  */
 public interface IAuthService {
 
-	/**
-	 * Registers a new user.
-	 *
-	 * @param request the registration request containing user details
-	 * @return the authentication response with user info and JWT token
-	 */
-	AuthResponse register(RegisterRequest request);
+  /**
+   * Registers a new user.
+   *
+   * @param request the registration request containing user details
+   * @return the authentication response with user info and JWT token
+   */
+  AuthResponse register(RegisterRequest request);
 
-	/**
-	 * Authenticates a user.
-	 *
-	 * @param request the login request containing credentials
-	 * @return the authentication response with user info and JWT token
-	 */
-	AuthResponse login(LoginRequest request);
+  /**
+   * Authenticates a user.
+   *
+   * @param request the login request containing credentials
+   * @return the authentication response with user info and JWT token
+   */
+  AuthResponse login(LoginRequest request);
 
-	/**
-	 * Gets the currently authenticated user.
-	 *
-	 * @return the user DTO of the authenticated user
-	 */
-	UserDTO getCurrentUser();
+  /**
+   * Gets the currently authenticated user.
+   *
+   * @return the user DTO of the authenticated user
+   */
+  UserDTO getCurrentUser();
 }

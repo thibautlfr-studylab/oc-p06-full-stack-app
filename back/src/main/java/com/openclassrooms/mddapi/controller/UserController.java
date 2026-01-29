@@ -1,19 +1,12 @@
 package com.openclassrooms.mddapi.controller;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.openclassrooms.mddapi.dto.UserDTO;
 import com.openclassrooms.mddapi.dto.request.UpdateProfileRequest;
 import com.openclassrooms.mddapi.service.interfaces.IUserService;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * REST controller for user operations.
@@ -23,28 +16,28 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
 
-	private final IUserService userService;
+  private final IUserService userService;
 
-	/**
-	 * Retrieves a user by their ID.
-	 *
-	 * @param id the user ID
-	 * @return the user DTO
-	 */
-	@GetMapping("/{id}")
-	public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-		return ResponseEntity.ok(userService.getUserById(id));
-	}
+  /**
+   * Retrieves a user by their ID.
+   *
+   * @param id the user ID
+   * @return the user DTO
+   */
+  @GetMapping("/{id}")
+  public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+    return ResponseEntity.ok(userService.getUserById(id));
+  }
 
-	/**
-	 * Updates a user's profile.
-	 *
-	 * @param id the user ID
-	 * @param request the update profile request
-	 * @return the updated user DTO
-	 */
-	@PutMapping("/{id}")
-	public ResponseEntity<UserDTO> updateProfile(@PathVariable Long id, @Valid @RequestBody UpdateProfileRequest request) {
-		return ResponseEntity.ok(userService.updateProfile(id, request));
-	}
+  /**
+   * Updates a user's profile.
+   *
+   * @param id      the user ID
+   * @param request the update profile request
+   * @return the updated user DTO
+   */
+  @PutMapping("/{id}")
+  public ResponseEntity<UserDTO> updateProfile(@PathVariable Long id, @Valid @RequestBody UpdateProfileRequest request) {
+    return ResponseEntity.ok(userService.updateProfile(id, request));
+  }
 }

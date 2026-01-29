@@ -1,11 +1,11 @@
 package com.openclassrooms.mddapi.dto;
 
-import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 /**
  * DTO for Post entity.
@@ -16,13 +16,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PostDTO {
 
-	private Long id;
-	private String title;
-	private String content;
-	private Long authorId;
-	private String authorUsername;
-	private Long topicId;
-	private String topicName;
-	private LocalDateTime createdAt;
-	private LocalDateTime updatedAt;
+  private Long id;
+  private String title;
+  private String content;
+  private Long authorId;
+  private String authorUsername;
+  private Long topicId;
+  private String topicName;
+  private LocalDateTime createdAt;
+  private LocalDateTime updatedAt;
 }

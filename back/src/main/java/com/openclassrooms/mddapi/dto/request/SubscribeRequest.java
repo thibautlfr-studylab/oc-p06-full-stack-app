@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SubscribeRequest {
 
-	@NotNull(message = "User ID is required")
-	private Long userId;
+  @NotNull(message = "User ID is required")
+  private Long userId;
 
-	@NotNull(message = "Topic ID is required")
-	private Long topicId;
+  @NotNull(message = "Topic ID is required")
+  private Long topicId;
 }

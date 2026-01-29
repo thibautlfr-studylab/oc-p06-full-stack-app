@@ -1,12 +1,11 @@
 package com.openclassrooms.mddapi.mapper;
 
-import java.util.List;
-
+import com.openclassrooms.mddapi.dto.UserDTO;
+import com.openclassrooms.mddapi.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.openclassrooms.mddapi.dto.UserDTO;
-import com.openclassrooms.mddapi.model.User;
+import java.util.List;
 
 /**
  * MapStruct mapper for User entity.
@@ -14,10 +13,10 @@ import com.openclassrooms.mddapi.model.User;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-	UserDTO toDTO(User user);
+  UserDTO toDTO(User user);
 
-	@Mapping(target = "password", ignore = true)
-	User toEntity(UserDTO dto);
+  @Mapping(target = "password", ignore = true)
+  User toEntity(UserDTO dto);
 
-	List<UserDTO> toDTOList(List<User> users);
+  List<UserDTO> toDTOList(List<User> users);
 }

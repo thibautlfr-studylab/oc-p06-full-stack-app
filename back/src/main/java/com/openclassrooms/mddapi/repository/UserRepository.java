@@ -1,11 +1,10 @@
 package com.openclassrooms.mddapi.repository;
 
-import java.util.Optional;
-
+import com.openclassrooms.mddapi.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.openclassrooms.mddapi.model.User;
+import java.util.Optional;
 
 /**
  * Repository for the User entity.
@@ -13,28 +12,28 @@ import com.openclassrooms.mddapi.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	/**
-	 * Finds a user by email.
-	 */
-	Optional<User> findByEmail(String email);
+  /**
+   * Finds a user by email.
+   */
+  Optional<User> findByEmail(String email);
 
-	/**
-	 * Finds a user by username.
-	 */
-	Optional<User> findByUsername(String username);
+  /**
+   * Finds a user by username.
+   */
+  Optional<User> findByUsername(String username);
 
-	/**
-	 * Finds a user by email or username (for login).
-	 */
-	Optional<User> findByEmailOrUsername(String email, String username);
+  /**
+   * Finds a user by email or username (for login).
+   */
+  Optional<User> findByEmailOrUsername(String email, String username);
 
-	/**
-	 * Checks if an email already exists.
-	 */
-	boolean existsByEmail(String email);
+  /**
+   * Checks if an email already exists.
+   */
+  boolean existsByEmail(String email);
 
-	/**
-	 * Checks if a username already exists.
-	 */
-	boolean existsByUsername(String username);
+  /**
+   * Checks if a username already exists.
+   */
+  boolean existsByUsername(String username);
 }

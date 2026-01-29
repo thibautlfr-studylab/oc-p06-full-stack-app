@@ -17,13 +17,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreatePostRequest {
 
-    @NotNull(message = "Topic ID is required")
-    private Long topicId;
+  @NotNull(message = "Topic ID is required")
+  private Long topicId;
 
-    @NotBlank(message = "Title is required")
-    @Size(max = 255, message = "Title must be at most 255 characters")
-    private String title;
+  @NotBlank(message = "Title is required")
+  @Size(max = 255, message = "Title must be at most 255 characters")
+  private String title;
 
-    @NotBlank(message = "Content is required")
-    private String content;
+  @NotBlank(message = "Content is required")
+  private String content;
 }

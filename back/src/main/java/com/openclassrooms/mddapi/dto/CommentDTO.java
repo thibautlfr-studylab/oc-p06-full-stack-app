@@ -1,11 +1,11 @@
 package com.openclassrooms.mddapi.dto;
 
-import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 /**
  * DTO for Comment entity.
@@ -16,11 +16,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommentDTO {
 
-	private Long id;
-	private String content;
-	private Long authorId;
-	private String authorUsername;
-	private Long postId;
-	private LocalDateTime createdAt;
-	private LocalDateTime updatedAt;
+  private Long id;
+  private String content;
+  private Long authorId;
+  private String authorUsername;
+  private Long postId;
+  private LocalDateTime createdAt;
+  private LocalDateTime updatedAt;
 }
