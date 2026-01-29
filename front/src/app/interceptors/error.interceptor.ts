@@ -34,9 +34,13 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
-          // Token expired or invalid - logout and redirect
-          this.authService.logout();
-          this.router.navigate(['/']);
+          // Skip redirect for auth endpoints - let components handle their own errors
+          const isAuthEndpoint = request.url.includes('/auth/login') || request.url.includes('/auth/register');
+          if (!isAuthEndpoint) {
+            // Token expired or invalid - logout and redirect
+            this.authService.logout();
+            this.router.navigate(['/']);
+          }
         }
         return throwError(() => error);
       })
