@@ -11,7 +11,8 @@ export class CommentService {
 
   private apiUrl = `${environment.apiUrl}/api/comments`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getCommentsForPost(postId: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(`${this.apiUrl}/post/${postId}`);

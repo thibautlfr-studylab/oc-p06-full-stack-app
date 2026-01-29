@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Subscription, SubscribeRequest } from '../interfaces/subscription.interface';
+import { SubscribeRequest, Subscription } from '../interfaces/subscription.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,8 @@ export class SubscriptionService {
 
   private apiUrl = `${environment.apiUrl}/api/subscriptions`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getUserSubscriptions(userId: number): Observable<Subscription[]> {
     return this.http.get<Subscription[]>(`${this.apiUrl}/user/${userId}`);

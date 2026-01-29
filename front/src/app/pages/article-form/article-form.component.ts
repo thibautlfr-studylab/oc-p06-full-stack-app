@@ -40,28 +40,6 @@ export class ArticleFormComponent implements OnInit {
     this.loadSubscribedTopics();
   }
 
-  private loadSubscribedTopics(): void {
-    const user = this.authService.getCurrentUser();
-    if (!user) {
-      return;
-    }
-
-    forkJoin({
-      topics: this.topicService.getTopics(),
-      subscribedIds: this.subscriptionService.getSubscribedTopicIds(user.id)
-    }).subscribe({
-      next: ({ topics, subscribedIds }) => {
-        const subscribedSet = new Set(subscribedIds);
-        this.subscribedTopics = topics.filter(t => subscribedSet.has(t.id));
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Erreur lors du chargement des themes', err);
-        this.loading = false;
-      }
-    });
-  }
-
   goBack(): void {
     this.router.navigate(['/articles']);
   }
@@ -92,6 +70,28 @@ export class ArticleFormComponent implements OnInit {
       error: (err) => {
         this.isLoading = false;
         this.errorMessage = err.error?.message || 'Une erreur est survenue';
+      }
+    });
+  }
+
+  private loadSubscribedTopics(): void {
+    const user = this.authService.getCurrentUser();
+    if (!user) {
+      return;
+    }
+
+    forkJoin({
+      topics: this.topicService.getTopics(),
+      subscribedIds: this.subscriptionService.getSubscribedTopicIds(user.id)
+    }).subscribe({
+      next: ({topics, subscribedIds}) => {
+        const subscribedSet = new Set(subscribedIds);
+        this.subscribedTopics = topics.filter(t => subscribedSet.has(t.id));
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des themes', err);
+        this.loading = false;
       }
     });
   }

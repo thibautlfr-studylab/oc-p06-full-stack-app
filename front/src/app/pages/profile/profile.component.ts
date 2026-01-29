@@ -5,7 +5,7 @@ import { UserService } from '../../services/user.service';
 import { SubscriptionService } from '../../services/subscription.service';
 import { User } from '../../interfaces/user.interface';
 import { Subscription } from '../../interfaces/subscription.interface';
-import { PASSWORD_PATTERN, getPasswordErrors } from '../../shared/validators/password.validator';
+import { getPasswordErrors, PASSWORD_PATTERN } from '../../shared/validators/password.validator';
 
 @Component({
   selector: 'app-profile',
@@ -45,23 +45,6 @@ export class ProfileComponent implements OnInit {
       });
       this.loadSubscriptions();
     }
-  }
-
-  private loadSubscriptions(): void {
-    if (!this.currentUser) {
-      return;
-    }
-    this.loadingSubscriptions = true;
-    this.subscriptionService.getUserSubscriptions(this.currentUser.id).subscribe({
-      next: (subscriptions) => {
-        this.subscriptions = subscriptions;
-        this.loadingSubscriptions = false;
-      },
-      error: (err) => {
-        console.error('Erreur lors du chargement des abonnements', err);
-        this.loadingSubscriptions = false;
-      }
-    });
   }
 
   unsubscribe(topicId: number): void {
@@ -126,11 +109,28 @@ export class ProfileComponent implements OnInit {
         this.isLoading = false;
         this.successMessage = 'Profil mis à jour avec succès';
         this.authService.updateCurrentUser(updatedUser);
-        this.profileForm.patchValue({ password: '' });
+        this.profileForm.patchValue({password: ''});
       },
       error: (err) => {
         this.isLoading = false;
         this.errorMessage = err.error?.error || 'Une erreur est survenue';
+      }
+    });
+  }
+
+  private loadSubscriptions(): void {
+    if (!this.currentUser) {
+      return;
+    }
+    this.loadingSubscriptions = true;
+    this.subscriptionService.getUserSubscriptions(this.currentUser.id).subscribe({
+      next: (subscriptions) => {
+        this.subscriptions = subscriptions;
+        this.loadingSubscriptions = false;
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des abonnements', err);
+        this.loadingSubscriptions = false;
       }
     });
   }

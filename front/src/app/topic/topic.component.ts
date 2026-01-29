@@ -21,11 +21,35 @@ export class TopicComponent implements OnInit {
     private topicService: TopicService,
     private subscriptionService: SubscriptionService,
     private authService: AuthService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadTopics();
     this.loadSubscribedTopicIds();
+  }
+
+  isSubscribed(topicId: number): boolean {
+    return this.subscribedTopicIds.has(topicId);
+  }
+
+  subscribe(topicId: number): void {
+    const user = this.authService.getCurrentUser();
+    if (!user || this.subscribingTopicId !== null) {
+      return;
+    }
+
+    this.subscribingTopicId = topicId;
+    this.subscriptionService.subscribe({userId: user.id, topicId}).subscribe({
+      next: () => {
+        this.subscribedTopicIds.add(topicId);
+        this.subscribingTopicId = null;
+      },
+      error: (err) => {
+        console.error('Erreur lors de l\'abonnement', err);
+        this.subscribingTopicId = null;
+      }
+    });
   }
 
   private loadTopics(): void {
@@ -54,28 +78,5 @@ export class TopicComponent implements OnInit {
         }
       });
     }
-  }
-
-  isSubscribed(topicId: number): boolean {
-    return this.subscribedTopicIds.has(topicId);
-  }
-
-  subscribe(topicId: number): void {
-    const user = this.authService.getCurrentUser();
-    if (!user || this.subscribingTopicId !== null) {
-      return;
-    }
-
-    this.subscribingTopicId = topicId;
-    this.subscriptionService.subscribe({ userId: user.id, topicId }).subscribe({
-      next: () => {
-        this.subscribedTopicIds.add(topicId);
-        this.subscribingTopicId = null;
-      },
-      error: (err) => {
-        console.error('Erreur lors de l\'abonnement', err);
-        this.subscribingTopicId = null;
-      }
-    });
   }
 }

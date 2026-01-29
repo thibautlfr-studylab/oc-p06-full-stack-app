@@ -20,10 +20,24 @@ export class FeedComponent implements OnInit {
     private postService: PostService,
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadFeed();
+  }
+
+  toggleSort(): void {
+    this.ascending = !this.ascending;
+    this.loadFeed();
+  }
+
+  navigateToPost(postId: number): void {
+    this.router.navigate(['/articles', postId]);
+  }
+
+  navigateToCreate(): void {
+    this.router.navigate(['/articles/create']);
   }
 
   private loadFeed(): void {
@@ -44,18 +58,5 @@ export class FeedComponent implements OnInit {
         console.error(err);
       }
     });
-  }
-
-  toggleSort(): void {
-    this.ascending = !this.ascending;
-    this.loadFeed();
-  }
-
-  navigateToPost(postId: number): void {
-    this.router.navigate(['/articles', postId]);
-  }
-
-  navigateToCreate(): void {
-    this.router.navigate(['/articles/create']);
   }
 }

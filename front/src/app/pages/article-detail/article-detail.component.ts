@@ -27,7 +27,8 @@ export class ArticleDetailComponent implements OnInit {
     private postService: PostService,
     private commentService: CommentService,
     private authService: AuthService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -35,6 +36,34 @@ export class ArticleDetailComponent implements OnInit {
       this.loadPost(+id);
       this.loadComments(+id);
     }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/articles']);
+  }
+
+  submitComment(): void {
+    if (!this.newComment.trim() || !this.post || this.submitting) {
+      return;
+    }
+
+    const user = this.authService.getCurrentUser();
+    if (!user) {
+      return;
+    }
+
+    this.submitting = true;
+    this.commentService.addComment(this.post.id, user.id, {content: this.newComment}).subscribe({
+      next: (comment) => {
+        this.comments.push(comment);
+        this.newComment = '';
+        this.submitting = false;
+      },
+      error: (err) => {
+        console.error('Erreur lors de l\'ajout du commentaire', err);
+        this.submitting = false;
+      }
+    });
   }
 
   private loadPost(id: number): void {
@@ -60,34 +89,6 @@ export class ArticleDetailComponent implements OnInit {
       error: (err) => {
         console.error('Erreur lors du chargement des commentaires', err);
         this.loadingComments = false;
-      }
-    });
-  }
-
-  goBack(): void {
-    this.router.navigate(['/articles']);
-  }
-
-  submitComment(): void {
-    if (!this.newComment.trim() || !this.post || this.submitting) {
-      return;
-    }
-
-    const user = this.authService.getCurrentUser();
-    if (!user) {
-      return;
-    }
-
-    this.submitting = true;
-    this.commentService.addComment(this.post.id, user.id, { content: this.newComment }).subscribe({
-      next: (comment) => {
-        this.comments.push(comment);
-        this.newComment = '';
-        this.submitting = false;
-      },
-      error: (err) => {
-        console.error('Erreur lors de l\'ajout du commentaire', err);
-        this.submitting = false;
       }
     });
   }

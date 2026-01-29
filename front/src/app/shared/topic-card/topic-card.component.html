@@ -9,10 +9,10 @@
 
   <mat-card-actions>
     <button
-      mat-flat-button
+      (click)="onAction()"
       [class]="getButtonClass()"
       [disabled]="isButtonDisabled()"
-      (click)="onAction()">
+      mat-flat-button>
       {{ getButtonText() }}
     </button>
   </mat-card-actions>

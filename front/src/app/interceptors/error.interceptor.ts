@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -21,7 +15,8 @@ export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   /**
    * Intercepts HTTP responses and handles authentication errors.

@@ -12,7 +12,7 @@ export class ResponsiveService implements OnDestroy {
 
   constructor() {
     this.checkViewport();
-    
+
     this.resizeSubscription = fromEvent(window, 'resize')
       .pipe(
         debounceTime(200),
@@ -24,13 +24,13 @@ export class ResponsiveService implements OnDestroy {
       });
   }
 
-  private checkViewport(): void {
-    this.isMobileSubject.next(window.innerWidth < 768);
-  }
-
   ngOnDestroy(): void {
     if (this.resizeSubscription) {
       this.resizeSubscription.unsubscribe();
     }
+  }
+
+  private checkViewport(): void {
+    this.isMobileSubject.next(window.innerWidth < 768);
   }
 }

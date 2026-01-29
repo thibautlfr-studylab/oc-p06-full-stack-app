@@ -1,6 +1,6 @@
 <div class="article-container">
   <div class="article-header">
-    <button mat-icon-button class="back-button" (click)="goBack()">
+    <button (click)="goBack()" class="back-button" mat-icon-button>
       <mat-icon>arrow_back</mat-icon>
     </button>
     @if (post) {
@@ -51,9 +51,10 @@
 
       <div class="comment-form">
         <mat-form-field appearance="outline" class="comment-input">
-          <input matInput [(ngModel)]="newComment" placeholder="Écrivez ici votre commentaire">
+          <input [(ngModel)]="newComment" matInput placeholder="Écrivez ici votre commentaire">
         </mat-form-field>
-        <button mat-icon-button class="send-button" (click)="submitComment()" [disabled]="!newComment.trim() || submitting">
+        <button (click)="submitComment()" [disabled]="!newComment.trim() || submitting" class="send-button"
+                mat-icon-button>
           <mat-icon>send</mat-icon>
         </button>
       </div>

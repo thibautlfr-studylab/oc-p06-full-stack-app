@@ -1,16 +1,16 @@
 <div class="auth-container">
   <div class="auth-nav">
-    <button class="back-button" (click)="goBack()">
+    <button (click)="goBack()" class="back-button">
       <mat-icon>arrow_back</mat-icon>
     </button>
     <h1 class="auth-title">Inscription</h1>
   </div>
 
   <div class="auth-content">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+    <form (ngSubmit)="onSubmit()" [formGroup]="registerForm" class="auth-form">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Nom d'utilisateur</mat-label>
-        <input matInput formControlName="username" type="text">
+        <input formControlName="username" matInput type="text">
         @if (registerForm.get('username')?.hasError('required')) {
           <mat-error>Ce champ est requis</mat-error>
         }
@@ -21,7 +21,7 @@
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Adresse e-mail</mat-label>
-        <input matInput formControlName="email" type="email">
+        <input formControlName="email" matInput type="email">
         @if (registerForm.get('email')?.hasError('required')) {
           <mat-error>Ce champ est requis</mat-error>
         }
@@ -32,7 +32,7 @@
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Mot de passe</mat-label>
-        <input matInput formControlName="password" type="password">
+        <input formControlName="password" matInput type="password">
       </mat-form-field>
 
       @if (registerForm.get('password')?.value) {
@@ -50,7 +50,7 @@
         <div class="error-message">{{ errorMessage }}</div>
       }
 
-      <button mat-flat-button color="primary" type="submit" class="submit-button" [disabled]="isLoading">
+      <button [disabled]="isLoading" class="submit-button" color="primary" mat-flat-button type="submit">
         {{ isLoading ? 'Inscription...' : "S'inscrire" }}
       </button>
     </form>

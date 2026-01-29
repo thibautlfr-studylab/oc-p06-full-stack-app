@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
@@ -23,7 +23,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private responsiveService: ResponsiveService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.subscription = this.authService.currentUser$.subscribe(user => {

@@ -11,7 +11,8 @@ export class TopicService {
 
   private apiUrl = `${environment.apiUrl}/api/topics`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getTopics(): Observable<Topic[]> {
     return this.http.get<Topic[]>(this.apiUrl);

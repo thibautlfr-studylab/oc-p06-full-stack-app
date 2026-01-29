@@ -1,6 +1,6 @@
 <div class="article-form-container">
   <div class="form-header">
-    <button mat-icon-button class="back-button" (click)="goBack()">
+    <button (click)="goBack()" class="back-button" mat-icon-button>
       <mat-icon>arrow_back</mat-icon>
     </button>
     <h1>Créer un nouvel article</h1>
@@ -11,7 +11,7 @@
   }
 
   @if (!loading) {
-    <form [formGroup]="articleForm" (ngSubmit)="onSubmit()" class="article-form">
+    <form (ngSubmit)="onSubmit()" [formGroup]="articleForm" class="article-form">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Sélectionner un theme</mat-label>
         <mat-select formControlName="topicId">
@@ -26,7 +26,7 @@
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Titre de l'article</mat-label>
-        <input matInput formControlName="title">
+        <input formControlName="title" matInput>
         @if (articleForm.get('title')?.hasError('required') && articleForm.get('title')?.touched) {
           <mat-error>Le titre est requis</mat-error>
         }
@@ -37,7 +37,7 @@
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Contenu de l'article</mat-label>
-        <textarea matInput formControlName="content" rows="10"></textarea>
+        <textarea formControlName="content" matInput rows="10"></textarea>
         @if (articleForm.get('content')?.hasError('required') && articleForm.get('content')?.touched) {
           <mat-error>Le contenu est requis</mat-error>
         }
@@ -47,7 +47,8 @@
         <div class="error-message">{{ errorMessage }}</div>
       }
 
-      <button mat-flat-button color="primary" type="submit" class="submit-button" [disabled]="articleForm.invalid || isLoading">
+      <button [disabled]="articleForm.invalid || isLoading" class="submit-button" color="primary" mat-flat-button
+              type="submit">
         {{ isLoading ? 'Création...' : 'Créer' }}
       </button>
     </form>

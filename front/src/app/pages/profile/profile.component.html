@@ -2,10 +2,10 @@
   <div class="profile-content">
     <h1 class="profile-title">Profil utilisateur</h1>
 
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
+    <form (ngSubmit)="onSubmit()" [formGroup]="profileForm" class="profile-form">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Nom d'utilisateur</mat-label>
-        <input matInput formControlName="username" type="text">
+        <input formControlName="username" matInput type="text">
         @if (profileForm.get('username')?.hasError('required')) {
           <mat-error>Ce champ est requis</mat-error>
         }
@@ -16,7 +16,7 @@
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Adresse e-mail</mat-label>
-        <input matInput formControlName="email" type="email">
+        <input formControlName="email" matInput type="email">
         @if (profileForm.get('email')?.hasError('required')) {
           <mat-error>Ce champ est requis</mat-error>
         }
@@ -27,7 +27,7 @@
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Mot de passe</mat-label>
-        <input matInput formControlName="password" type="password" placeholder="Laisser vide pour ne pas changer">
+        <input formControlName="password" matInput placeholder="Laisser vide pour ne pas changer" type="password">
       </mat-form-field>
 
       @if (profileForm.get('password')?.value) {
@@ -49,7 +49,8 @@
         <div class="error-message">{{ errorMessage }}</div>
       }
 
-      <button mat-flat-button color="primary" type="submit" class="submit-button" [disabled]="isLoading || !isPasswordValid()">
+      <button [disabled]="isLoading || !isPasswordValid()" class="submit-button" color="primary" mat-flat-button
+              type="submit">
         {{ isLoading ? 'Sauvegarde...' : 'Sauvegarder' }}
       </button>
     </form>
@@ -65,10 +66,10 @@
         <div class="subscriptions-grid">
           @for (subscription of subscriptions; track subscription.id) {
             <app-topic-card
-              [topic]="{ id: subscription.topicId, name: subscription.topicName, description: subscription.topicDescription }"
-              mode="unsubscribe"
+              (action)="unsubscribe($event)"
               [isLoading]="unsubscribingTopicId === subscription.topicId"
-              (action)="unsubscribe($event)">
+              [topic]="{ id: subscription.topicId, name: subscription.topicName, description: subscription.topicDescription }"
+              mode="unsubscribe">
             </app-topic-card>
           }
         </div>

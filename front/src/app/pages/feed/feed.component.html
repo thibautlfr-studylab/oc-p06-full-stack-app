@@ -1,9 +1,9 @@
 <div class="feed-container">
   <div class="feed-header">
-    <button mat-stroked-button class="create-button" (click)="navigateToCreate()">
+    <button (click)="navigateToCreate()" class="create-button" mat-stroked-button>
       Creer un article
     </button>
-    <div class="sort-control" (click)="toggleSort()">
+    <div (click)="toggleSort()" class="sort-control">
       <span>Trier par</span>
       <mat-icon>{{ ascending ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
     </div>
@@ -24,7 +24,7 @@
   @if (!loading && !error && posts.length > 0) {
     <div class="posts-grid">
       @for (post of posts; track post.id) {
-        <mat-card class="post-card" (click)="navigateToPost(post.id)">
+        <mat-card (click)="navigateToPost(post.id)" class="post-card">
           <mat-card-header>
             <mat-card-title>{{ post.title }}</mat-card-title>
           </mat-card-header>
@@ -33,7 +33,8 @@
               <span class="post-date">{{ post.createdAt | date:'dd/MM/yyyy' }}</span>
               <span class="post-author">{{ post.authorUsername }}</span>
             </div>
-            <p class="post-content">{{ post.content.length > 150 ? (post.content | slice:0:150) + '...' : post.content }}</p>
+            <p
+              class="post-content">{{ post.content.length > 150 ? (post.content | slice:0:150) + '...' : post.content }}</p>
           </mat-card-content>
         </mat-card>
       }
