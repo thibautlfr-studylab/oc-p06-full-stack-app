@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.openclassrooms.mddapi.dto.SubscriptionDTO;
+import com.openclassrooms.mddapi.exception.AlreadySubscribedException;
+import com.openclassrooms.mddapi.exception.ResourceNotFoundException;
 import com.openclassrooms.mddapi.mapper.SubscriptionMapper;
 import com.openclassrooms.mddapi.model.Subscription;
 import com.openclassrooms.mddapi.model.Topic;
@@ -47,13 +49,13 @@ public class SubscriptionService implements ISubscriptionService {
 	@Transactional
 	public SubscriptionDTO subscribe(Long userId, Long topicId) {
 		if (subscriptionRepository.existsByUserIdAndTopicId(userId, topicId)) {
-			throw new IllegalStateException("User is already subscribed to this topic");
+			throw new AlreadySubscribedException("User is already subscribed to this topic");
 		}
 
 		User user = userRepository.findById(userId)
-				.orElseThrow(() -> new IllegalArgumentException("User not found"));
+				.orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 		Topic topic = topicRepository.findById(topicId)
-				.orElseThrow(() -> new IllegalArgumentException("Topic not found"));
+				.orElseThrow(() -> new ResourceNotFoundException("Topic not found with id: " + topicId));
 
 		Subscription subscription = Subscription.builder()
 				.user(user)
@@ -67,7 +69,7 @@ public class SubscriptionService implements ISubscriptionService {
 	@Transactional
 	public void unsubscribe(Long userId, Long topicId) {
 		if (!subscriptionRepository.existsByUserIdAndTopicId(userId, topicId)) {
-			throw new IllegalArgumentException("Subscription not found");
+			throw new ResourceNotFoundException("Subscription not found for user " + userId + " and topic " + topicId);
 		}
 		subscriptionRepository.deleteByUserIdAndTopicId(userId, topicId);
 	}

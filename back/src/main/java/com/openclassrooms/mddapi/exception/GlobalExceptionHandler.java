@@ -37,6 +37,13 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 
+	@ExceptionHandler(AlreadySubscribedException.class)
+	public ResponseEntity<Map<String, String>> handleAlreadySubscribed(AlreadySubscribedException ex) {
+		Map<String, String> error = new HashMap<>();
+		error.put("error", ex.getMessage());
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+	}
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
 		Map<String, String> errors = new HashMap<>();
