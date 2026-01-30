@@ -35,7 +35,7 @@
         <input formControlName="password" matInput type="password">
       </mat-form-field>
 
-      @if (registerForm.get('password')?.value) {
+      @if (registerForm.get('password')?.value && getPasswordErrors().length > 0) {
         <div class="password-requirements">
           <p class="requirements-title">Le mot de passe doit contenir :</p>
           <ul class="requirements-list">
