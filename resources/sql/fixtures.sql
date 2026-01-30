@@ -13,9 +13,9 @@ USE mdd;
 -- USERS
 -- ===========================================
 INSERT INTO users (email, username, password) VALUES
-('alice@test.com', 'alice', '$2a$10$xn3LI/AjqicFYZFruSwve.681477XaVNaUQbr1gioaWPn4t1KsnmG'),
-('bob@test.com', 'bob', '$2a$10$xn3LI/AjqicFYZFruSwve.681477XaVNaUQbr1gioaWPn4t1KsnmG'),
-('charlie@test.com', 'charlie', '$2a$10$xn3LI/AjqicFYZFruSwve.681477XaVNaUQbr1gioaWPn4t1KsnmG');
+('alice@test.com', 'alice', '$2a$10$s9DY22.Rkwh1./90WdGZb.C9nt2gTMCuJ/9arHBDnWQt6EkJMksFm'),
+('bob@test.com', 'bob', '$2a$10$s9DY22.Rkwh1./90WdGZb.C9nt2gTMCuJ/9arHBDnWQt6EkJMksFm'),
+('charlie@test.com', 'charlie', '$2a$10$s9DY22.Rkwh1./90WdGZb.C9nt2gTMCuJ/9arHBDnWQt6EkJMksFm');
 
 -- ===========================================
 -- TOPICS - Thèmes de programmation
