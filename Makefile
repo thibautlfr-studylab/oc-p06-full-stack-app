@@ -1,13 +1,16 @@
-.PHONY: install clean db-up db-down db-reset help
+.PHONY: install clean db-up db-down db-reset test test-front test-back help
 
 # Afficher l'aide
 help:
 	@echo "Commandes disponibles:"
-	@echo "  make install   - Installer les dependances front et back"
-	@echo "  make clean     - Nettoyer les dependances et fichiers generes"
-	@echo "  make db-up     - Demarrer la base de donnees MySQL (Docker)"
-	@echo "  make db-down   - Arreter la base de donnees"
-	@echo "  make db-reset  - Reset complet de la DB (supprime les donnees)"
+	@echo "  make install    - Installer les dependances front et back"
+	@echo "  make clean      - Nettoyer les dependances et fichiers generes"
+	@echo "  make test       - Executer tous les tests (front + back)"
+	@echo "  make test-front - Executer les tests frontend"
+	@echo "  make test-back  - Executer les tests backend"
+	@echo "  make db-up      - Demarrer la base de donnees MySQL (Docker)"
+	@echo "  make db-down    - Arreter la base de donnees"
+	@echo "  make db-reset   - Reset complet de la DB (supprime les donnees)"
 
 # Installer les dependances front et back
 install:
@@ -22,6 +25,16 @@ clean:
 	rm -rf front/node_modules
 	@echo "Nettoyage du backend..."
 	cd back && ./mvnw clean
+
+test: test-back test-front
+
+test-front:
+	@echo "Execution des tests frontend..."
+	cd front && npm test -- --watch=false --browsers=ChromeHeadless
+
+test-back:
+	@echo "Execution des tests backend..."
+	cd back && ./mvnw test
 
 # Demarrer la base de donnees
 db-up:
