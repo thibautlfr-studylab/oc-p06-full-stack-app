@@ -1,0 +1,32 @@
+.topics-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-base);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: var(--grid-gap);
+}
+
+.error {
+  color: var(--color-error);
+}
+
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--grid-gap);
+}
+
+@media (max-width: 768px) {
+  .topics-grid {
+    grid-template-columns: 1fr;
+  }
+}

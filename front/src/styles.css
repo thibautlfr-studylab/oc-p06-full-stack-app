@@ -1,0 +1,16 @@
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import './styles/global.css';
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font-family), serif;
+}
+
+main.app-content {
+  padding-top: var(--navbar-height);
+  min-height: 100vh;
+  box-sizing: border-box;
+}

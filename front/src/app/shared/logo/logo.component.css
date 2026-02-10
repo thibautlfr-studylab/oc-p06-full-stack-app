@@ -1,0 +1,18 @@
+.logo {
+  display: inline-block;
+}
+
+.logo.small img {
+  width: 60px;
+  height: 36px;
+}
+
+.logo.medium img {
+  width: 100px;
+  height: 60px;
+}
+
+.logo.large img {
+  width: 150px;
+  height: 90px;
+}

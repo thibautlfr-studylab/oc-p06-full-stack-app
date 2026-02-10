@@ -1,0 +1,119 @@
+.article-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-base);
+}
+
+.article-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-base);
+  margin-bottom: var(--spacing-lg);
+}
+
+.back-button {
+  color: var(--color-text-primary);
+}
+
+.article-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: var(--spacing-xl);
+}
+
+.error {
+  color: var(--color-error);
+}
+
+.article-meta {
+  display: flex;
+  gap: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xl);
+}
+
+.article-content {
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.article-content p {
+  white-space: pre-wrap;
+}
+
+.comments-section {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--spacing-xl);
+}
+
+.comments-section h2 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-lg);
+}
+
+.comments-loading,
+.no-comments {
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-base);
+  margin-bottom: var(--spacing-lg);
+}
+
+.comment {
+  padding: var(--spacing-base);
+  background-color: var(--color-background-light);
+  border-radius: var(--radius-sm);
+}
+
+.comment-author {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+}
+
+.comment-content {
+  margin: var(--spacing-sm) 0 0 0;
+  color: var(--color-text-primary);
+}
+
+.comment-form {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.comment-input {
+  flex: 1;
+}
+
+.send-button {
+  color: var(--color-primary);
+}
+
+.send-button:disabled {
+  color: var(--color-text-light);
+}
+
+@media (max-width: 768px) {
+  .article-meta {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .article-title {
+    font-size: var(--font-size-lg);
+  }
+}

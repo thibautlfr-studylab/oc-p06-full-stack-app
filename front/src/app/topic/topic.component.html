@@ -1,0 +1,25 @@
+<div class="topics-container">
+  <h1>Thèmes</h1>
+
+  @if (loading) {
+    <div class="loading">Chargement...</div>
+  }
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (!loading && !error) {
+    <div class="topics-grid">
+      @for (topic of topics; track topic.id) {
+        <app-topic-card
+          (action)="subscribe($event)"
+          [isLoading]="subscribingTopicId === topic.id"
+          [isSubscribed]="isSubscribed(topic.id)"
+          [topic]="topic"
+          mode="subscribe">
+        </app-topic-card>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,22 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mdd-mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mdd
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./resources/sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./resources/sql/fixtures.sql:/docker-entrypoint-initdb.d/02-fixtures.sql
+      - mdd-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mdd-mysql-data:

@@ -1,0 +1,56 @@
+<div class="article-form-container">
+  <div class="form-header">
+    <button (click)="goBack()" class="back-button" mat-icon-button>
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>Créer un nouvel article</h1>
+  </div>
+
+  @if (loading) {
+    <div class="loading">Chargement...</div>
+  }
+
+  @if (!loading) {
+    <form (ngSubmit)="onSubmit()" [formGroup]="articleForm" class="article-form">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Sélectionner un theme</mat-label>
+        <mat-select formControlName="topicId">
+          @for (topic of subscribedTopics; track topic.id) {
+            <mat-option [value]="topic.id">{{ topic.name }}</mat-option>
+          }
+        </mat-select>
+        @if (articleForm.get('topicId')?.hasError('required') && articleForm.get('topicId')?.touched) {
+          <mat-error>Veuillez sélectionner un theme</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Titre de l'article</mat-label>
+        <input formControlName="title" matInput>
+        @if (articleForm.get('title')?.hasError('required') && articleForm.get('title')?.touched) {
+          <mat-error>Le titre est requis</mat-error>
+        }
+        @if (articleForm.get('title')?.hasError('maxlength')) {
+          <mat-error>Maximum 255 caractères</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Contenu de l'article</mat-label>
+        <textarea formControlName="content" matInput rows="10"></textarea>
+        @if (articleForm.get('content')?.hasError('required') && articleForm.get('content')?.touched) {
+          <mat-error>Le contenu est requis</mat-error>
+        }
+      </mat-form-field>
+
+      @if (errorMessage) {
+        <div class="error-message">{{ errorMessage }}</div>
+      }
+
+      <button [disabled]="articleForm.invalid || isLoading" class="submit-button" color="primary" mat-flat-button
+              type="submit">
+        {{ isLoading ? 'Création...' : 'Créer' }}
+      </button>
+    </form>
+  }
+</div>

@@ -1,0 +1,43 @@
+<div class="feed-container">
+  <div class="feed-header">
+    <button (click)="navigateToCreate()" class="create-button" mat-stroked-button>
+      Creer un article
+    </button>
+    <div (click)="toggleSort()" class="sort-control">
+      <span>Trier par</span>
+      <mat-icon>{{ ascending ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="loading">Chargement...</div>
+  }
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (!loading && !error && posts.length === 0) {
+    <div class="empty">Aucun article disponible. Abonnez-vous a des themes!</div>
+  }
+
+  @if (!loading && !error && posts.length > 0) {
+    <div class="posts-grid">
+      @for (post of posts; track post.id) {
+        <mat-card (click)="navigateToPost(post.id)" class="post-card">
+          <mat-card-header>
+            <mat-card-title>{{ post.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="post-meta">
+              <span class="post-date">{{ post.createdAt | date:'dd/MM/yyyy' }}</span>
+              <span class="post-author">{{ post.authorUsername }}</span>
+            </div>
+            <p
+              class="post-content">{{ post.content.length > 150 ? (post.content | slice:0:150) + '...' : post.content }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  }
+</div>

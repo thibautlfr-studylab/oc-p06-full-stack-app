@@ -1,0 +1,518 @@
+{
+	"info": {
+		"_postman_id": "mdd-api-collection-2024",
+		"name": "MDD API",
+		"description": "Collection Postman pour l'API MDD (Monde de Dév) - Réseau social pour développeurs.\n\n## Configuration\n\n1. **Importer cette collection** dans Postman\n2. **Exécuter Register ou Login** en premier pour obtenir un token JWT\n3. Le token et l'userId sont **sauvegardés automatiquement** dans les variables de collection\n4. Toutes les autres requêtes utilisent ces variables automatiquement\n\n## Variables de collection\n\n| Variable | Description |\n|----------|-------------|\n| `baseUrl` | URL de base de l'API (défaut: http://localhost:9000) |\n| `token` | Token JWT (rempli automatiquement après login/register) |\n| `userId` | ID de l'utilisateur connecté (rempli automatiquement) |\n| `topicId` | ID d'un topic pour les tests |\n| `postId` | ID d'un post pour les tests |\n\n## Validation mot de passe\n\n≥8 caractères, 1 chiffre, 1 minuscule, 1 majuscule, 1 caractère spécial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:9000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "userId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "topicId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "postId",
+			"value": "1",
+			"type": "string"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"description": "Endpoints d'authentification (inscription, connexion, profil courant)",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200 || pm.response.code === 201) {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData.token) {",
+									"        pm.collectionVariables.set(\"token\", jsonData.token);",
+									"    }",
+									"    if (jsonData.id) {",
+									"        pm.collectionVariables.set(\"userId\", jsonData.id);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"testuser\",\n    \"email\": \"test@example.com\",\n    \"password\": \"Password1!\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Inscription d'un nouvel utilisateur.\n\n**Validation mot de passe:** ≥8 caractères, 1 chiffre, 1 minuscule, 1 majuscule, 1 caractère spécial\n\n**Note:** Le token JWT est automatiquement sauvegardé dans les variables de collection après une inscription réussie."
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200 || pm.response.code === 201) {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData.token) {",
+									"        pm.collectionVariables.set(\"token\", jsonData.token);",
+									"    }",
+									"    if (jsonData.id) {",
+									"        pm.collectionVariables.set(\"userId\", jsonData.id);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"identifier\": \"alice@test.com\",\n    \"password\": \"Password1!\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Connexion d'un utilisateur existant.\n\n**identifier:** peut être l'email OU le username\n\n**Note:** Le token JWT est automatiquement sauvegardé dans les variables de collection après une connexion réussie."
+					},
+					"response": []
+				},
+				{
+					"name": "Me (Current User)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						},
+						"description": "Récupère les informations de l'utilisateur actuellement connecté.\n\n**Authentification requise:** Bearer Token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"description": "Gestion des utilisateurs (profil)",
+			"item": [
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "Récupère les informations d'un utilisateur par son ID.\n\n**Authentification requise:** Bearer Token"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"nouveaunom\",\n    \"email\": \"nouveau@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "Met à jour le profil d'un utilisateur.\n\n**Champs optionnels:**\n- `username` (3-100 caractères)\n- `email` (email valide)\n- `password` (doit respecter les règles de validation)\n\n**Authentification requise:** Bearer Token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Topics",
+			"description": "Gestion des thèmes de discussion",
+			"item": [
+				{
+					"name": "Get All Topics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/topics",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"topics"
+							]
+						},
+						"description": "Récupère la liste de tous les thèmes disponibles.\n\n**Authentification requise:** Bearer Token"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Topic by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/topics/{{topicId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"topics",
+								"{{topicId}}"
+							]
+						},
+						"description": "Récupère les détails d'un thème par son ID.\n\n**Authentification requise:** Bearer Token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"description": "Gestion des articles",
+			"item": [
+				{
+					"name": "Get Feed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/posts/feed/{{userId}}?ascending=false",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"feed",
+								"{{userId}}"
+							],
+							"query": [
+								{
+									"key": "ascending",
+									"value": "false",
+									"description": "Tri chronologique: false = plus récent d'abord, true = plus ancien d'abord"
+								}
+							]
+						},
+						"description": "Récupère le fil d'actualité de l'utilisateur (articles des thèmes auxquels il est abonné).\n\n**Query Parameters:**\n- `ascending` (boolean, défaut: false) - Ordre de tri chronologique\n\n**Authentification requise:** Bearer Token"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/posts/{{postId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"{{postId}}"
+							]
+						},
+						"description": "Récupère les détails d'un article par son ID.\n\n**Authentification requise:** Bearer Token"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"topicId\": 1,\n    \"title\": \"Mon premier article\",\n    \"content\": \"Contenu de mon article sur le développement...\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/posts/user/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"user",
+								"{{userId}}"
+							]
+						},
+						"description": "Crée un nouvel article.\n\n**Champs requis:**\n- `topicId` (Long) - ID du thème associé\n- `title` (String, max 255 caractères) - Titre de l'article\n- `content` (String) - Contenu de l'article\n\n**Authentification requise:** Bearer Token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"description": "Gestion des commentaires sur les articles",
+			"item": [
+				{
+					"name": "Get Comments by Post",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/comments/post/{{postId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"comments",
+								"post",
+								"{{postId}}"
+							]
+						},
+						"description": "Récupère tous les commentaires d'un article.\n\n**Authentification requise:** Bearer Token"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"Super article, merci pour le partage !\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/comments/post/{{postId}}/user/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"comments",
+								"post",
+								"{{postId}}",
+								"user",
+								"{{userId}}"
+							]
+						},
+						"description": "Ajoute un commentaire à un article.\n\n**Champs requis:**\n- `content` (String) - Contenu du commentaire\n\n**Authentification requise:** Bearer Token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Subscriptions",
+			"description": "Gestion des abonnements aux thèmes",
+			"item": [
+				{
+					"name": "Get User Subscriptions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/subscriptions/user/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"user",
+								"{{userId}}"
+							]
+						},
+						"description": "Récupère tous les abonnements d'un utilisateur avec les détails des thèmes.\n\n**Authentification requise:** Bearer Token"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Subscribed Topic IDs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/subscriptions/user/{{userId}}/topic-ids",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"user",
+								"{{userId}}",
+								"topic-ids"
+							]
+						},
+						"description": "Récupère uniquement les IDs des thèmes auxquels l'utilisateur est abonné.\n\n**Authentification requise:** Bearer Token"
+					},
+					"response": []
+				},
+				{
+					"name": "Subscribe to Topic",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": {{userId}},\n    \"topicId\": {{topicId}}\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/subscriptions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"subscriptions"
+							]
+						},
+						"description": "Abonne un utilisateur à un thème.\n\n**Champs requis:**\n- `userId` (Long) - ID de l'utilisateur\n- `topicId` (Long) - ID du thème\n\n**Authentification requise:** Bearer Token"
+					},
+					"response": []
+				},
+				{
+					"name": "Unsubscribe from Topic",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/subscriptions/user/{{userId}}/topic/{{topicId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"user",
+								"{{userId}}",
+								"topic",
+								"{{topicId}}"
+							]
+						},
+						"description": "Désabonne un utilisateur d'un thème.\n\n**Note:** Le désabonnement se fait uniquement depuis la page profil (selon les spécifications).\n\n**Authentification requise:** Bearer Token"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,19 @@
+<mat-card class="topic-card">
+  <mat-card-header>
+    <mat-card-title>{{ topic.name }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>{{ topic.description }}</p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button
+      (click)="onAction()"
+      [class]="getButtonClass()"
+      [disabled]="isButtonDisabled()"
+      mat-flat-button>
+      {{ getButtonText() }}
+    </button>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,62 @@
+.article-form-container {
+  max-width: var(--form-max-width-lg);
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--spacing-base);
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-base);
+  margin-bottom: var(--spacing-xl);
+}
+
+.form-header h1 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.back-button {
+  color: var(--color-text-primary);
+}
+
+.loading {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--color-text-secondary);
+}
+
+.article-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-base);
+}
+
+.form-field {
+  width: 100%;
+}
+
+.error-message {
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  padding: var(--spacing-sm);
+  background-color: var(--color-background-error);
+  border-radius: var(--radius-sm);
+}
+
+.submit-button {
+  margin-top: var(--spacing-base);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary) !important;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: var(--color-primary-hover) !important;
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+}

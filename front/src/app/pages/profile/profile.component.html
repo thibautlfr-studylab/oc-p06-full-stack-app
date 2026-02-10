@@ -1,0 +1,79 @@
+<div class="profile-container">
+  <div class="profile-content">
+    <h1 class="profile-title">Profil utilisateur</h1>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="profileForm" class="profile-form">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nom d'utilisateur</mat-label>
+        <input formControlName="username" matInput type="text">
+        @if (profileForm.get('username')?.hasError('required')) {
+          <mat-error>Ce champ est requis</mat-error>
+        }
+        @if (profileForm.get('username')?.hasError('minlength')) {
+          <mat-error>Minimum 3 caractères</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Adresse e-mail</mat-label>
+        <input formControlName="email" matInput type="email">
+        @if (profileForm.get('email')?.hasError('required')) {
+          <mat-error>Ce champ est requis</mat-error>
+        }
+        @if (profileForm.get('email')?.hasError('email')) {
+          <mat-error>Email invalide</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Mot de passe</mat-label>
+        <input formControlName="password" matInput placeholder="Laisser vide pour ne pas changer" type="password">
+      </mat-form-field>
+
+      @if (profileForm.get('password')?.value) {
+        <div class="password-requirements">
+          <p class="requirements-title">Le mot de passe doit contenir :</p>
+          <ul class="requirements-list">
+            @for (error of getPasswordErrors(); track error) {
+              <li class="requirement-item invalid">{{ error }}</li>
+            }
+          </ul>
+        </div>
+      }
+
+      @if (successMessage) {
+        <div class="success-message">{{ successMessage }}</div>
+      }
+
+      @if (errorMessage) {
+        <div class="error-message">{{ errorMessage }}</div>
+      }
+
+      <button [disabled]="isLoading || !isPasswordValid()" class="submit-button" color="primary" mat-flat-button
+              type="submit">
+        {{ isLoading ? 'Sauvegarde...' : 'Sauvegarder' }}
+      </button>
+    </form>
+
+    <div class="subscriptions-section">
+      <h2 class="subscriptions-title">Abonnements</h2>
+
+      @if (loadingSubscriptions) {
+        <p class="subscriptions-loading">Chargement...</p>
+      } @else if (subscriptions.length === 0) {
+        <p class="subscriptions-empty">Vous n'êtes abonné à aucun thème.</p>
+      } @else {
+        <div class="subscriptions-grid">
+          @for (subscription of subscriptions; track subscription.id) {
+            <app-topic-card
+              (action)="unsubscribe($event)"
+              [isLoading]="unsubscribingTopicId === subscription.topicId"
+              [topic]="{ id: subscription.topicId, name: subscription.topicName, description: subscription.topicDescription }"
+              mode="unsubscribe">
+            </app-topic-card>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-left">
+      <app-logo (click)="navigateTo(isLoggedIn ? '/themes' : '/')" class="navbar-logo" size="small"></app-logo>
+    </div>
+
+    @if (isLoggedIn) {
+      @if (!isMobile) {
+        <div class="navbar-center">
+          <span (click)="logout()" class="nav-link logout-link">Se déconnecter</span>
+          <a class="nav-link" routerLink="/articles" routerLinkActive="active">Articles</a>
+          <a class="nav-link" routerLink="/themes" routerLinkActive="active">Thèmes</a>
+          <a class="nav-link" routerLink="/profile" routerLinkActive="active">
+            <img alt="User" class="user-icon" height="32" ngSrc="assets/images/user.svg" width="32">
+          </a>
+        </div>
+      }
+
+      @if (isMobile) {
+        <button (click)="toggleMobileMenu()" class="burger-menu">
+          <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 12H21" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+            <path d="M3 6H21" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+            <path d="M3 18H21" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          </svg>
+        </button>
+      }
+    }
+  </div>
+
+  @if (isLoggedIn && isMobile && isMobileMenuOpen) {
+    <div (click)="closeMobileMenu()" class="mobile-overlay"></div>
+  }
+
+  @if (isLoggedIn) {
+    <div [class.open]="isMobile && isMobileMenuOpen" class="mobile-menu">
+      <div class="mobile-menu-content">
+        <span (click)="logout()" class="mobile-nav-link logout-link">Se déconnecter</span>
+        <a (click)="closeMobileMenu()" class="mobile-nav-link" routerLink="/articles"
+           routerLinkActive="active">Articles</a>
+        <a (click)="closeMobileMenu()" class="mobile-nav-link" routerLink="/themes" routerLinkActive="active">Thèmes</a>
+        <a (click)="closeMobileMenu()" class="mobile-nav-link user-link-mobile" routerLink="/profile"
+           routerLinkActive="active">
+          <img alt="User" class="user-icon" height="32" ngSrc="assets/images/user.svg" width="32">
+        </a>
+      </div>
+    </div>
+  }
+</nav>
