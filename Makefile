@@ -30,7 +30,7 @@ test: test-back test-front
 
 test-front:
 	@echo "Execution des tests frontend..."
-	cd front && npm test -- --watch=false --browsers=ChromeHeadless
+	cd front && npm run test:coverage
 
 test-back:
 	@echo "Execution des tests backend..."

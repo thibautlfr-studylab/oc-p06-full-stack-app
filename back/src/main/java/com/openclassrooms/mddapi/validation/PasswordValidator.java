@@ -21,11 +21,6 @@ public class PasswordValidator implements ConstraintValidator<ValidPassword, Str
   );
 
   @Override
-  public void initialize(ValidPassword constraintAnnotation) {
-    // No initialization needed
-  }
-
-  @Override
   public boolean isValid(String password, ConstraintValidatorContext context) {
     if (password == null || password.isEmpty()) {
       return true; // Let @NotBlank handle null/empty validation
