@@ -42,26 +42,26 @@ INSERT INTO subscriptions (user_id, topic_id) VALUES
 -- ===========================================
 -- POSTS - Articles
 -- ===========================================
-INSERT INTO posts (title, content, author_id, topic_id) VALUES
+INSERT INTO posts (title, content, author_id, topic_id, created_at) VALUES
 ('Introduction à Spring Boot 3',
  'Spring Boot 3 simplifie considérablement le développement d''applications Java. Avec sa configuration automatique et ses starters, vous pouvez démarrer un projet en quelques minutes. Dans cet article, nous allons explorer les principales nouveautés de la version 3.x, notamment le support natif de GraalVM et les améliorations de performance.',
- 1, 3),
+ 1, 3, '2025-01-15 10:30:00'),
 
 ('Les nouveautés d''Angular 20',
  'Angular 20 apporte des améliorations significatives en termes de performance et d''expérience développeur. Le nouveau système de build basé sur esbuild réduit considérablement les temps de compilation. Les Signals, introduits dans les versions précédentes, sont maintenant matures et offrent une alternative élégante aux Observables pour la gestion d''état local.',
- 2, 2),
+ 2, 2, '2025-02-20 14:45:00'),
 
 ('Python pour le Machine Learning',
  'Python s''est imposé comme le langage de référence pour le machine learning grâce à ses bibliothèques comme TensorFlow, PyTorch et scikit-learn. Sa syntaxe claire et sa communauté active en font un choix idéal pour les data scientists. Découvrons ensemble comment démarrer votre premier projet ML.',
- 2, 4),
+ 2, 4, '2025-03-08 09:15:00'),
 
 ('Docker en production : bonnes pratiques',
  'Déployer des containers Docker en production nécessite une attention particulière à la sécurité et aux performances. Dans cet article, nous abordons les bonnes pratiques : images légères basées sur Alpine, multi-stage builds, gestion des secrets, health checks et stratégies de logging.',
- 3, 6),
+ 3, 6, '2025-04-12 16:00:00'),
 
 ('Les nouveautés de Java 21',
  'Java 21, version LTS, introduit des fonctionnalités très attendues : les Virtual Threads (Project Loom) pour une concurrence simplifiée, le pattern matching amélioré, les record patterns, et les sequenced collections. Ces ajouts modernisent considérablement le langage.',
- 1, 1);
+ 1, 1, '2025-05-25 11:20:00');
 
 -- ===========================================
 -- COMMENTS - Commentaires
